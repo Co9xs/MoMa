@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "dev": "ts-node-dev --files --respawn src/index.ts",
     "build": "run-s clean tsc",
     "start": "node .",
     "prisma:generate": "prisma generate",
@@ -17,10 +17,15 @@
   },
   "dependencies": {
     "@prisma/client": "3.7.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "express-promise-router": "^4.1.1",
+    "express-session": "^1.17.2",
+    "http-errors": "^2.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.4",
+    "@types/http-errors": "^1.8.1",
     "@types/node": "^17.0.5",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",

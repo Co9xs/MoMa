@@ -1,16 +1,16 @@
-import { PrismaClient } from '@prisma/client';
+import http from 'http';
 
-const prisma = new PrismaClient();
+import { app } from './app';
 
 async function main() {
-  const allUser = await prisma.user.findMany();
-  console.log(allUser);
+  const server = http.createServer(app);
+
+  server.listen(Number(process.env.PORT || 3000), '0.0.0.0', () => {
+    const address = server.address();
+    if (typeof address !== 'string') {
+      console.log(`Listening on ${address?.address}:${address?.port}`);
+    }
+  });
 }
 
-main()
-  .catch((err) => {
-    throw err;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main().catch(console.error);
