@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
+// TODO: implement check user id
 router.get('/credit_cards', async (req, res) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -68,6 +69,10 @@ router.patch('/credit_cards/:credit_card_id', async (req, res) => {
     },
   });
 
+  if (creditCard === null) {
+    throw new httpErrors.NotFound();
+  }
+
   return res.status(200).type('application/json').send(creditCard);
 });
 
@@ -82,11 +87,15 @@ router.delete('/credit_cards/:credit_card_id', async (req, res) => {
     throw new httpErrors.NotFound();
   }
 
-  await prisma.creditCard.delete({
+  const creditCard = await prisma.creditCard.delete({
     where: {
       id: Number(req.params.credit_card_id),
     },
   });
+
+  if (creditCard === null) {
+    throw new httpErrors.NotFound();
+  }
 
   return res.status(200).type('application/json').send({});
 });

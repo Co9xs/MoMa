@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
+// TODO: implement check user id
 router.get('/subscriptions', async (req, res) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -68,6 +69,10 @@ router.patch('/subscriptions/:subscription_id', async (req, res) => {
     },
   });
 
+  if (subscription === null) {
+    throw new httpErrors.NotFound();
+  }
+
   return res.status(200).type('application/json').send(subscription);
 });
 
@@ -82,11 +87,15 @@ router.delete('/subscriptions/:subscription_id', async (req, res) => {
     throw new httpErrors.NotFound();
   }
 
-  await prisma.subscription.delete({
+  const subscription = await prisma.subscription.delete({
     where: {
       id: Number(req.params.subscription_id),
     },
   });
+
+  if (subscription === null) {
+    throw new httpErrors.NotFound();
+  }
 
   return res.status(200).type('application/json').send({});
 });
