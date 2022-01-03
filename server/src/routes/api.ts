@@ -1,9 +1,9 @@
 import Router from 'express-promise-router';
 
-import { authRouter } from './api/auth';
+import { subscriptionRouter } from './api/subscription';
 
 const router = Router();
 
-router.use(authRouter);
+router.use(subscriptionRouter);
 
 export { router as apiRouter };

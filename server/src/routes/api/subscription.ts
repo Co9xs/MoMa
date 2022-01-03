@@ -6,15 +6,19 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get('/subscriptions', async (req, res) => {
-  const currentUserId = req.session.userId;
+  const user = await prisma.user.findUnique({
+    where: {
+      auth0Id: req.body.auth0Id,
+    },
+  });
 
-  if (currentUserId === undefined) {
-    throw new httpErrors.BadRequest();
+  if (user === null) {
+    throw new httpErrors.NotFound();
   }
 
   const subscriptions = await prisma.subscription.findMany({
     where: {
-      subscriberId: currentUserId,
+      subscriberId: user.id,
     },
   });
 
@@ -22,17 +26,21 @@ router.get('/subscriptions', async (req, res) => {
 });
 
 router.post('/subscriptions', async (req, res) => {
-  const currentUserId = req.session.userId;
+  const user = await prisma.user.findUnique({
+    where: {
+      auth0Id: req.body.auth0Id,
+    },
+  });
 
-  if (currentUserId === undefined) {
-    throw new httpErrors.BadRequest();
+  if (user === null) {
+    throw new httpErrors.NotFound();
   }
 
   const subscription = await prisma.subscription.create({
     data: {
       name: req.body.name,
       price: req.body.price,
-      subscriberId: currentUserId,
+      subscriberId: user.id,
     },
   });
 
@@ -40,12 +48,6 @@ router.post('/subscriptions', async (req, res) => {
 });
 
 router.patch('/subscriptions/:subscription_id', async (req, res) => {
-  const currentUserId = req.session.userId;
-
-  if (currentUserId === undefined) {
-    throw new httpErrors.BadRequest();
-  }
-
   const subscription = await prisma.subscription.update({
     where: {
       id: Number(req.params.subscription_id),
@@ -60,12 +62,6 @@ router.patch('/subscriptions/:subscription_id', async (req, res) => {
 });
 
 router.delete('/subscriptions/:subscription_id', async (req, res) => {
-  const currentUserId = req.session.userId;
-
-  if (currentUserId === undefined) {
-    throw new httpErrors.BadRequest();
-  }
-
   await prisma.subscription.delete({
     where: {
       id: Number(req.params.subscription_id),
