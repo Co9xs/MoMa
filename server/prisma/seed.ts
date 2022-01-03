@@ -8,6 +8,7 @@ async function insertSeed() {
     create: {
       email: 'taro@example.com',
       name: 'taro',
+      password: 'password1',
     },
   });
 
@@ -17,6 +18,7 @@ async function insertSeed() {
     create: {
       email: 'jiro@example.com',
       name: 'jiro',
+      password: 'password2',
     },
   });
   console.log({ taro, jiro });
