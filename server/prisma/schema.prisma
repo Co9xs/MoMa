@@ -14,4 +14,70 @@ model User {
   id Int @id @default(autoincrement())
   name String
   email String @unique
+  subscriptions Subscription[]
+  creditCards CreditCard[]
+  accounts Account[]
+  wallet Wallet[]
+}
+
+model Subscription {
+  id Int @id @default(autoincrement())
+  name String
+  price Int
+  subscriber User @relation(fields: [subscriberId], references: [id])
+  subscriberId Int
+}
+
+model CreditCard {
+  id Int @id @default(autoincrement())
+  name String
+  budget Int
+  statements CreditCardStatement[]
+  owner User @relation(fields: [ownerId], references: [id])
+  ownerId Int
+}
+
+model CreditCardStatement {
+  id Int @id @default(autoincrement())
+  date DateTime
+  name String
+  price Int
+  belongTo CreditCard @relation(fields: [creditCardId], references: [id])
+  creditCardId Int
+}
+
+model Account {
+  id Int @id @default(autoincrement())
+  name String
+  balance Int
+  accountStatements AccountStatement[]
+  owner User @relation(fields: [ownerId], references: [id])
+  ownerId Int
+}
+
+model AccountStatement {
+  id Int @id @default(autoincrement())
+  date DateTime
+  name String
+  price Int
+  belongTo Account @relation(fields: [accountId], references: [id])
+  accountId Int
+}
+
+model Wallet {
+  id Int @id @default(autoincrement())
+  name String
+  balance Int
+  walletStatements WalletStatement[]
+  owner User @relation(fields: [ownerId], references: [id])
+  ownerId Int
+}
+
+model WalletStatement {
+  id Int @id @default(autoincrement())
+  date DateTime
+  name String
+  price Int
+  belongTo Wallet @relation(fields: [walletId], references: [id])
+  walletId Int
 }
