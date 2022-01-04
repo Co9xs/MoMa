@@ -5,21 +5,12 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
-// TODO: implement check user id
 router.get('/accounts', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
-
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
+  const currentUserId = Number(req.body.currentUser.id);
 
   const account = await prisma.account.findMany({
     where: {
-      ownerId: user.id,
+      ownerId: currentUserId,
     },
   });
 
@@ -27,39 +18,37 @@ router.get('/accounts', async (req, res) => {
 });
 
 router.post('/accounts', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
+  const currentUserId = Number(req.body.currentUser.id);
 
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
-
-  const account = await prisma.account.create({
+  const newAccount = await prisma.account.create({
     data: {
       name: req.body.name,
       balance: req.body.balance,
-      ownerId: user.id,
+      ownerId: currentUserId,
     },
   });
 
-  return res.status(200).type('application/json').send(account);
+  return res.status(200).type('application/json').send(newAccount);
 });
 
 router.patch('/accounts/:account_id', async (req, res) => {
-  const user = await prisma.user.findUnique({
+  const currentUserId = Number(req.body.currentUser.id);
+
+  const account = await prisma.account.findUnique({
     where: {
-      auth0Id: req.body.auth0Id,
+      id: Number(req.params.account_id),
     },
   });
 
-  if (user === null) {
+  if (account === null) {
     throw new httpErrors.NotFound();
   }
 
-  const account = await prisma.account.update({
+  if (account.ownerId !== currentUserId) {
+    throw new httpErrors.Forbidden();
+  }
+
+  const updatedAccount = await prisma.account.update({
     where: {
       id: Number(req.params.account_id),
     },
@@ -69,25 +58,13 @@ router.patch('/accounts/:account_id', async (req, res) => {
     },
   });
 
-  if (account === null) {
-    throw new httpErrors.NotFound();
-  }
-
-  return res.status(200).type('application/json').send(account);
+  return res.status(200).type('application/json').send(updatedAccount);
 });
 
 router.delete('/accounts/:account_id', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
+  const currentUserId = Number(req.body.currentUser.id);
 
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
-
-  const account = await prisma.account.delete({
+  const account = await prisma.account.findUnique({
     where: {
       id: Number(req.params.account_id),
     },
@@ -96,6 +73,16 @@ router.delete('/accounts/:account_id', async (req, res) => {
   if (account === null) {
     throw new httpErrors.NotFound();
   }
+
+  if (account.ownerId !== currentUserId) {
+    throw new httpErrors.Forbidden();
+  }
+
+  await prisma.account.delete({
+    where: {
+      id: Number(req.params.account_id),
+    },
+  });
 
   return res.status(200).type('application/json').send({});
 });

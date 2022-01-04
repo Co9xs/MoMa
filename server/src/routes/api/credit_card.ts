@@ -5,21 +5,12 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
-// TODO: implement check user id
 router.get('/credit_cards', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
-
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
+  const currentUserId = Number(req.body.currentUser.id);
 
   const creditCards = await prisma.creditCard.findMany({
     where: {
-      ownerId: user.id,
+      ownerId: currentUserId,
     },
   });
 
@@ -27,39 +18,37 @@ router.get('/credit_cards', async (req, res) => {
 });
 
 router.post('/credit_cards', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
+  const currentUserId = Number(req.body.currentUser.id);
 
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
-
-  const creditCard = await prisma.creditCard.create({
+  const newCreditCard = await prisma.creditCard.create({
     data: {
       name: req.body.name,
       budget: req.body.budget,
-      ownerId: user.id,
+      ownerId: currentUserId,
     },
   });
 
-  return res.status(200).type('application/json').send(creditCard);
+  return res.status(200).type('application/json').send(newCreditCard);
 });
 
 router.patch('/credit_cards/:credit_card_id', async (req, res) => {
-  const user = await prisma.user.findUnique({
+  const currentUserId = Number(req.body.currentUser.id);
+
+  const creditCard = await prisma.creditCard.findUnique({
     where: {
-      auth0Id: req.body.auth0Id,
+      id: Number(req.params.credit_card_id),
     },
   });
 
-  if (user === null) {
+  if (creditCard === null) {
     throw new httpErrors.NotFound();
   }
 
-  const creditCard = await prisma.creditCard.update({
+  if (creditCard.ownerId !== currentUserId) {
+    throw new httpErrors.Forbidden();
+  }
+
+  const updatedCreditCard = await prisma.creditCard.update({
     where: {
       id: Number(req.params.credit_card_id),
     },
@@ -69,25 +58,13 @@ router.patch('/credit_cards/:credit_card_id', async (req, res) => {
     },
   });
 
-  if (creditCard === null) {
-    throw new httpErrors.NotFound();
-  }
-
-  return res.status(200).type('application/json').send(creditCard);
+  return res.status(200).type('application/json').send(updatedCreditCard);
 });
 
 router.delete('/credit_cards/:credit_card_id', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
+  const currentUserId = Number(req.body.currentUser.id);
 
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
-
-  const creditCard = await prisma.creditCard.delete({
+  const creditCard = await prisma.creditCard.findUnique({
     where: {
       id: Number(req.params.credit_card_id),
     },
@@ -96,6 +73,16 @@ router.delete('/credit_cards/:credit_card_id', async (req, res) => {
   if (creditCard === null) {
     throw new httpErrors.NotFound();
   }
+
+  if (creditCard.ownerId !== currentUserId) {
+    throw new httpErrors.Forbidden();
+  }
+
+  await prisma.creditCard.delete({
+    where: {
+      id: Number(req.params.credit_card_id),
+    },
+  });
 
   return res.status(200).type('application/json').send({});
 });
