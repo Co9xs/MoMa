@@ -16,7 +16,6 @@ model User {
   subscriptions Subscription[]
   creditCards CreditCard[]
   accounts Account[]
-  wallet Wallet[]
 }
 
 model Subscription {
@@ -61,22 +60,4 @@ model AccountStatement {
   price Int
   belongTo Account @relation(fields: [accountId], references: [id])
   accountId Int
-}
-
-model Wallet {
-  id Int @id @default(autoincrement())
-  name String
-  balance Int
-  walletStatements WalletStatement[]
-  owner User @relation(fields: [ownerId], references: [id])
-  ownerId Int
-}
-
-model WalletStatement {
-  id Int @id @default(autoincrement())
-  date DateTime
-  name String
-  price Int
-  belongTo Wallet @relation(fields: [walletId], references: [id])
-  walletId Int
 }

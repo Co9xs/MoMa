@@ -6,19 +6,11 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get('/subscriptions', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
-
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
+  const currentUserId = Number(req.body.currentUser.id);
 
   const subscriptions = await prisma.subscription.findMany({
     where: {
-      subscriberId: user.id,
+      subscriberId: currentUserId,
     },
   });
 
@@ -26,39 +18,37 @@ router.get('/subscriptions', async (req, res) => {
 });
 
 router.post('/subscriptions', async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: req.body.auth0Id,
-    },
-  });
+  const currentUserId = Number(req.body.currentUser.id);
 
-  if (user === null) {
-    throw new httpErrors.NotFound();
-  }
-
-  const subscription = await prisma.subscription.create({
+  const newSubscription = await prisma.subscription.create({
     data: {
       name: req.body.name,
       price: req.body.price,
-      subscriberId: user.id,
+      subscriberId: currentUserId,
     },
   });
 
-  return res.status(200).type('application/json').send(subscription);
+  return res.status(200).type('application/json').send(newSubscription);
 });
 
 router.patch('/subscriptions/:subscription_id', async (req, res) => {
-  const user = await prisma.user.findUnique({
+  const currentUserId = Number(req.body.currentUser.id);
+
+  const subscription = await prisma.subscription.findUnique({
     where: {
-      auth0Id: req.body.auth0Id,
+      id: Number(req.params.subscription_id),
     },
   });
 
-  if (user === null) {
+  if (subscription === null) {
     throw new httpErrors.NotFound();
   }
 
-  const subscription = await prisma.subscription.update({
+  if (subscription.subscriberId !== currentUserId) {
+    throw new httpErrors.Forbidden();
+  }
+
+  const updatedSubscription = await prisma.subscription.update({
     where: {
       id: Number(req.params.subscription_id),
     },
@@ -68,18 +58,24 @@ router.patch('/subscriptions/:subscription_id', async (req, res) => {
     },
   });
 
-  return res.status(200).type('application/json').send(subscription);
+  return res.status(200).type('application/json').send(updatedSubscription);
 });
 
 router.delete('/subscriptions/:subscription_id', async (req, res) => {
-  const user = await prisma.user.findUnique({
+  const currentUserId = Number(req.body.currentUser.id);
+
+  const subscription = await prisma.subscription.findUnique({
     where: {
-      auth0Id: req.body.auth0Id,
+      id: Number(req.params.subscription_id),
     },
   });
 
-  if (user === null) {
+  if (subscription === null) {
     throw new httpErrors.NotFound();
+  }
+
+  if (subscription.subscriberId !== currentUserId) {
+    throw new httpErrors.Forbidden();
   }
 
   await prisma.subscription.delete({
