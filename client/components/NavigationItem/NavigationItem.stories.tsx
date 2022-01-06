@@ -35,3 +35,9 @@ WithIcon.args = {
   href: 'https://example.com',
   icon: <ReactIcon iconType='account' />,
 };
+
+export const NoHref = Template.bind({});
+NoHref.args = {
+  text: 'Link with icon',
+  icon: <ReactIcon iconType='account' />,
+};
