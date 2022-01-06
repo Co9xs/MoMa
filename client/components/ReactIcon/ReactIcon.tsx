@@ -2,8 +2,9 @@ import { AiOutlineAccountBook, AiOutlineHome, AiOutlineCreditCard, AiOutlineUser
 import { MdOutlineSubscriptions } from 'react-icons/md';
 import { IoIosAddCircle } from 'react-icons/io';
 import { GoSignIn } from 'react-icons/go';
+import { GiMoneyStack } from 'react-icons/gi';
 
-const icons = ['home', 'account', 'creditCard', 'subscription', 'signin', 'user', 'add'] as const;
+const icons = ['home', 'account', 'creditCard', 'subscription', 'signin', 'user', 'add', 'money'] as const;
 
 interface Props {
   iconType: typeof icons[number];
@@ -27,6 +28,8 @@ export const ReactIcon: React.VFC<Props> = ({ iconType, ...rest }) => {
       return <AiOutlineUser {...rest} />;
     case 'add':
       return <IoIosAddCircle {...rest} />;
+    case 'money':
+      return <GiMoneyStack {...rest} />;
     default:
       return null;
   }
