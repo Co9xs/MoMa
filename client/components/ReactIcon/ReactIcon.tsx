@@ -1,8 +1,10 @@
 import { AiOutlineAccountBook, AiOutlineHome, AiOutlineCreditCard, AiOutlineUser } from 'react-icons/ai';
 import { MdOutlineSubscriptions } from 'react-icons/md';
+import { IoIosAddCircle } from 'react-icons/io';
 import { GoSignIn } from 'react-icons/go';
+import { GiMoneyStack } from 'react-icons/gi';
 
-const icons = ['home', 'account', 'creditCard', 'subscription', 'signin', 'user'] as const;
+const icons = ['home', 'account', 'creditCard', 'subscription', 'signin', 'user', 'add', 'money'] as const;
 
 interface Props {
   iconType: typeof icons[number];
@@ -10,20 +12,24 @@ interface Props {
   size?: string | number;
 }
 
-export const ReactIcon: React.VFC<Props> = ({ iconType, color, size }) => {
+export const ReactIcon: React.VFC<Props> = ({ iconType, ...rest }) => {
   switch (iconType) {
     case 'home':
-      return <AiOutlineHome color={color} size={size} />;
+      return <AiOutlineHome {...rest} />;
     case 'account':
-      return <AiOutlineAccountBook color={color} size={size} />;
+      return <AiOutlineAccountBook {...rest} />;
     case 'creditCard':
-      return <AiOutlineCreditCard color={color} size={size} />;
+      return <AiOutlineCreditCard {...rest} />;
     case 'subscription':
-      return <MdOutlineSubscriptions color={color} size={size} />;
+      return <MdOutlineSubscriptions {...rest} />;
     case 'signin':
-      return <GoSignIn color={color} size={size} />;
+      return <GoSignIn {...rest} />;
     case 'user':
-      return <AiOutlineUser color={color} size={size} />;
+      return <AiOutlineUser {...rest} />;
+    case 'add':
+      return <IoIosAddCircle {...rest} />;
+    case 'money':
+      return <GiMoneyStack {...rest} />;
     default:
       return null;
   }
