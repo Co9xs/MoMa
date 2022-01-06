@@ -22,7 +22,7 @@ export const Navigation: React.VFC<Props> = ({ activeUser }) => {
             <NavigationItem icon={<ReactIcon iconType='subscription' />} href='/subscriptions' text='サブスク管理' />
           ) : null}
           {activeUser === null ? (
-            <NavigationItem icon={<ReactIcon iconType='signin' />} href='/signin' text='サインイン' />
+            <NavigationItem icon={<ReactIcon iconType='signin' />} onClick={() => {}} text='サインイン' />
           ) : null}
         </ul>
       </nav>
