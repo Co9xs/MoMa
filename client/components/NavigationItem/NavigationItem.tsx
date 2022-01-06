@@ -14,13 +14,13 @@ export const NavigationItem: React.VFC<Props> = ({ icon, text, href, onClick }) 
   const router = useRouter();
   const isActive = router.pathname === href;
   return (
-    <li className={'list-none'}>
+    <li className='list-none w-full h-auto'>
       {href !== undefined ? (
         <Link href={href}>
           <div
             className={classNames(
-              'flex flex-row items-center justify-start px-6 py-2 w-auto h-auto cursor-pointer',
-              isActive ? 'bg-white-200 text-black-200' : 'bg-black-200 text-white-200'
+              'flex flex-row items-center justify-start px-6 py-2 w-full h-auto cursor-pointer',
+              isActive ? 'bg-white-200 text-black-200 font-bold' : 'bg-black-200 text-white-100'
             )}
             onClick={onClick}
           >
@@ -30,7 +30,7 @@ export const NavigationItem: React.VFC<Props> = ({ icon, text, href, onClick }) 
         </Link>
       ) : (
         <button
-          className='flex flex-row items-center justify-start px-6 py-2 w-full h-auto bg-black-200 text-white-200'
+          className='flex flex-row items-center justify-start px-6 py-2 w-full h-auto bg-black-200 text-white-100'
           onClick={onClick}
         >
           {icon !== undefined ? <span className='text-2xl pr-2'>{icon}</span> : null}
