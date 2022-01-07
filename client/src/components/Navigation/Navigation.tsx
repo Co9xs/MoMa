@@ -1,14 +1,17 @@
 import React from 'react';
+import { User } from '../../types';
 import { Logo } from '../Logo';
 
 import { NavigationItem } from '../NavigationItem';
 import { ReactIcon } from '../ReactIcon';
 
 interface Props {
-  activeUser: any;
+  activeUser: User | null;
+  onRequestLogout: () => void;
+  onRequestLogin: () => void;
 }
 
-export const Navigation: React.VFC<Props> = ({ activeUser }) => {
+export const Navigation: React.VFC<Props> = ({ activeUser, onRequestLogout, onRequestLogin }) => {
   return (
     <div className='flex flex-col w-64 h-screen'>
       <Logo icon={<ReactIcon iconType='money' />} />
@@ -21,8 +24,11 @@ export const Navigation: React.VFC<Props> = ({ activeUser }) => {
           {activeUser !== null ? (
             <NavigationItem icon={<ReactIcon iconType='subscription' />} href='/subscriptions' text='サブスク管理' />
           ) : null}
+          {activeUser !== null ? (
+            <NavigationItem icon={<ReactIcon iconType='user' />} onClick={onRequestLogout} text='ログアウト' />
+          ) : null}
           {activeUser === null ? (
-            <NavigationItem icon={<ReactIcon iconType='signin' />} href='/signin' text='サインイン' />
+            <NavigationItem icon={<ReactIcon iconType='signin' />} onClick={onRequestLogin} text='ログイン' />
           ) : null}
         </ul>
       </nav>

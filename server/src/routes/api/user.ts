@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
-router.get('/me', async (req, res) => {
+router.post('/me', async (req, res) => {
   if (req.body.auth0Id === undefined || req.body.auth0Id === null) {
     throw new httpErrors.Unauthorized();
   }
