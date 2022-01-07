@@ -9,3 +9,10 @@ export type Account = Readonly<{
   balance: number;
   ownerId: number;
 }>;
+
+export type CreditCard = Readonly<{
+  id: number;
+  name: string;
+  budget: number;
+  ownerId: number;
+}>;
