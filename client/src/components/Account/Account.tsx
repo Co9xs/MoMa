@@ -6,7 +6,7 @@ interface Props {
 
 export const AccountInfo: React.VFC<Props> = ({ account }) => {
   return (
-    <div className='flex flex-col bg-white-100 drop-shadow rounded-lg p-4 border cursor-pointer'>
+    <div className='flex flex-col bg-white-100 shadow-inner rounded-lg p-4 cursor-pointer'>
       <h3 className='text-2xl text-black-200 font-bold'>{account.name}</h3>
       <div className='px-2 py-3 border-b'>
         <p className='text-black-100'>口座残高</p>
