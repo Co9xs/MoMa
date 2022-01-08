@@ -15,7 +15,7 @@ export const CreditCardList: React.VFC<Props> = ({ creditCards }) => {
         <Button icon={<ReactIcon iconType='add' />} text='追加' />
       </div>
       {creditCards.map((creditCard) => (
-        <CreditCardInfo creditCard={creditCard} />
+        <CreditCardInfo key={creditCard.id} creditCard={creditCard} />
       ))}
     </div>
   );

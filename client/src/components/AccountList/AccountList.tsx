@@ -15,7 +15,7 @@ export const AccountList: React.VFC<Props> = ({ accounts }) => {
         <Button icon={<ReactIcon iconType='add' />} text='追加' />
       </div>
       {accounts.map((account) => (
-        <AccountInfo account={account} />
+        <AccountInfo key={account.id} account={account} />
       ))}
     </div>
   );
