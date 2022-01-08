@@ -1,5 +1,6 @@
 module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './containers/**/*.{js,ts,jsx,tsx}'],
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './containers/**/*.{js,ts,jsx,tsx}'],
+  darkMode: false,
   theme: {
     extend: {
       colors: {
@@ -17,13 +18,10 @@ module.exports = {
           100: '#3D4753',
           200: '#1C2330',
         },
+        padding: {
+          '256px': '256px',
+        },
       },
-    },
-    fontFamily: {
-      sans: ['Nunito Sans', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-    },
-    boxShadow: {
-      inner: 'rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset',
     },
   },
   plugins: [],
