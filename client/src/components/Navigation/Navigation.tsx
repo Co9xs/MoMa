@@ -17,9 +17,8 @@ export const Navigation: React.VFC<Props> = ({ activeUser, onRequestLogout, onRe
       <Logo icon={<ReactIcon iconType='money' />} />
       <nav className='bg-black-200 w-full h-full'>
         <ul className='bg-black-200 grid grid-flow-row grid-col-1 gap-2 py-4 w-full h-full auto-rows-min'>
-          <NavigationItem icon={<ReactIcon iconType='home' />} href='/' text='ホーム' />
           {activeUser !== null ? (
-            <NavigationItem icon={<ReactIcon iconType='account' />} href='/dashboard' text='お金の管理' />
+            <NavigationItem icon={<ReactIcon iconType='account' />} href='/dashboard' text='予算管理' />
           ) : null}
           {activeUser !== null ? (
             <NavigationItem icon={<ReactIcon iconType='subscription' />} href='/subscriptions' text='サブスク管理' />

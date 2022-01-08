@@ -26,38 +26,42 @@ export const Component: React.VFC<Props> = ({ activeUser, auth0User, isLoading, 
       {/* TODO: use tailwind arbitrary values (ex: pl-[256px]) */}
       <div className='bg-white-200 h-screen' style={{ paddingLeft: '256px' }}>
         <div className='p-6 grid grid-cols-2 gap-20'>
-          <AccountList
-            accounts={[
-              {
-                id: 1,
-                ownerId: 3,
-                name: '楽天銀行',
-                balance: 175000,
-              },
-              {
-                id: 2,
-                ownerId: 3,
-                name: 'ゆうちょ銀行',
-                balance: 24600,
-              },
-            ]}
-          />
-          <CreditCardList
-            creditCards={[
-              {
-                id: 1,
-                ownerId: 3,
-                name: '楽天カード',
-                budget: 50000,
-              },
-              {
-                id: 2,
-                ownerId: 3,
-                name: '三井住友カード',
-                budget: 10000,
-              },
-            ]}
-          />
+          <div>
+            <AccountList
+              accounts={[
+                {
+                  id: 1,
+                  ownerId: 3,
+                  name: '楽天銀行',
+                  balance: 175000,
+                },
+                {
+                  id: 2,
+                  ownerId: 3,
+                  name: 'ゆうちょ銀行',
+                  balance: 24600,
+                },
+              ]}
+            />
+          </div>
+          <div>
+            <CreditCardList
+              creditCards={[
+                {
+                  id: 1,
+                  ownerId: 3,
+                  name: '楽天カード',
+                  budget: 50000,
+                },
+                {
+                  id: 2,
+                  ownerId: 3,
+                  name: '三井住友カード',
+                  budget: 10000,
+                },
+              ]}
+            />
+          </div>
         </div>
       </div>
     </div>
