@@ -1,5 +1,6 @@
 module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './containers/**/*.{js,ts,jsx,tsx}'],
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './containers/**/*.{js,ts,jsx,tsx}'],
+  darkMode: false,
   theme: {
     extend: {
       colors: {
@@ -16,6 +17,9 @@ module.exports = {
         black: {
           100: '#3D4753',
           200: '#1C2330',
+        },
+        padding: {
+          '256px': '256px',
         },
       },
     },
