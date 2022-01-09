@@ -6,7 +6,11 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get('/accounts', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const account = await prisma.account.findMany({
     where: {
@@ -18,7 +22,11 @@ router.get('/accounts', async (req, res) => {
 });
 
 router.post('/accounts', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const newAccount = await prisma.account.create({
     data: {
@@ -32,7 +40,11 @@ router.post('/accounts', async (req, res) => {
 });
 
 router.patch('/accounts/:account_id', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const account = await prisma.account.findUnique({
     where: {
@@ -62,7 +74,11 @@ router.patch('/accounts/:account_id', async (req, res) => {
 });
 
 router.delete('/accounts/:account_id', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const account = await prisma.account.findUnique({
     where: {

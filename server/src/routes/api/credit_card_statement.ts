@@ -6,7 +6,11 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get('/credit_cards/:credit_card_id/statements', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const creditCard = await prisma.creditCard.findUnique({
     where: {
@@ -32,7 +36,11 @@ router.get('/credit_cards/:credit_card_id/statements', async (req, res) => {
 });
 
 router.post('/credit_cards/:credit_card_id/statements', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const creditCard = await prisma.creditCard.findUnique({
     where: {
@@ -61,7 +69,11 @@ router.post('/credit_cards/:credit_card_id/statements', async (req, res) => {
 });
 
 router.patch('/credit_cards/:credit_card_id/statements/:statement_id', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const creditCard = await prisma.creditCard.findUnique({
     where: {
@@ -107,7 +119,11 @@ router.patch('/credit_cards/:credit_card_id/statements/:statement_id', async (re
 });
 
 router.delete('/credit_cards/:credit_card_id/statements/:statement_id', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const creditCard = await prisma.creditCard.findUnique({
     where: {
