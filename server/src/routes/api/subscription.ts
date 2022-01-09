@@ -6,7 +6,11 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get('/subscriptions', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const subscriptions = await prisma.subscription.findMany({
     where: {
@@ -18,7 +22,11 @@ router.get('/subscriptions', async (req, res) => {
 });
 
 router.post('/subscriptions', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const newSubscription = await prisma.subscription.create({
     data: {
@@ -32,7 +40,11 @@ router.post('/subscriptions', async (req, res) => {
 });
 
 router.patch('/subscriptions/:subscription_id', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const subscription = await prisma.subscription.findUnique({
     where: {
@@ -62,7 +74,11 @@ router.patch('/subscriptions/:subscription_id', async (req, res) => {
 });
 
 router.delete('/subscriptions/:subscription_id', async (req, res) => {
-  const currentUserId = Number(req.body.currentUser.id);
+  const currentUserId = req.session.auth0Id;
+
+  if (currentUserId === undefined) {
+    throw new httpErrors.Unauthorized();
+  }
 
   const subscription = await prisma.subscription.findUnique({
     where: {

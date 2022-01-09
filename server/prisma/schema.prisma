@@ -22,8 +22,8 @@ model Subscription {
   id Int @id @default(autoincrement())
   name String
   price Int
-  subscriber User @relation(fields: [subscriberId], references: [id])
-  subscriberId Int
+  subscriber User @relation(fields: [subscriberId], references: [auth0Id])
+  subscriberId String
 }
 
 model CreditCard {
@@ -31,8 +31,8 @@ model CreditCard {
   name String
   budget Int
   statements CreditCardStatement[]
-  owner User @relation(fields: [ownerId], references: [id])
-  ownerId Int
+  owner User @relation(fields: [ownerId], references: [auth0Id])
+  ownerId String
 }
 
 model CreditCardStatement {
@@ -49,8 +49,8 @@ model Account {
   name String
   balance Int
   accountStatements AccountStatement[]
-  owner User @relation(fields: [ownerId], references: [id])
-  ownerId Int
+  owner User @relation(fields: [ownerId], references: [auth0Id])
+  ownerId String
 }
 
 model AccountStatement {
