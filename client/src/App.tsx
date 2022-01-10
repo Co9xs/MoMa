@@ -3,7 +3,9 @@ type Props = {
 };
 
 const App: React.VFC<Props> = ({ text }) => {
-  return <div className="font-bold text-2xl underline p-10">{text}</div>;
+  return (
+    <div className="font-bold text-2xl underline p-10 bg-red-200">{text}</div>
+  );
 };
 
 export { App };
