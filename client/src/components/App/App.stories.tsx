@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { App } from './App';
+import { App } from '@components/App';
 
 export default {
   title: 'Example/App',

@@ -46,6 +46,13 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
+    alias: {
+      '@components': path.resolve(SRC_PATH, './components'),
+      '@containers': path.resolve(SRC_PATH, './containers'),
+      '@hooks': path.resolve(SRC_PATH, './hooks'),
+      '@styles': path.resolve(SRC_PATH, './styles'),
+      '@utils': path.resolve(SRC_PATH, './utils'),
+    },
   },
   plugins: [
     new MiniCssExtractPlugin({
