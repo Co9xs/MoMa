@@ -1,7 +1,6 @@
-import React from "react";
 
 const App = () => {
-  return <div>app test</div>;
+  return <div className="font-bold text-2xl underline p-10">app test</div>;
 };
 
 export { App };
