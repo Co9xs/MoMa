@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import Router from 'express-promise-router';
 import httpErrors from 'http-errors';
 import { PrismaClient } from '@prisma/client';
