@@ -13,7 +13,9 @@
     "prisma:reset": "prisma migrate reset --force",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "prisma db seed --preview-feature",
-    "prisma:dev": "run-s -l prisma:reset prisma:generate prisma:migrate prisma:seed"
+    "prisma:dev": "run-s -l prisma:reset prisma:generate prisma:migrate prisma:seed",
+    "lint": "eslint -c .eslintrc.json './src/**/*.ts'",
+    "lint:fix": "eslint -c .eslintrc.json './src/**/*.ts' --fix"
   },
   "dependencies": {
     "@prisma/client": "3.7.0",
@@ -33,6 +35,8 @@
     "@typescript-eslint/parser": "^5.8.1",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.5.1",
     "prisma": "3.7.0",
     "rimraf": "^3.0.2",

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import Router from 'express-promise-router';
 import httpErrors from 'http-errors';
 
@@ -6,7 +9,7 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
-router.post('/signin', async (req, res) => {
+router.post('/signin', (req, res) => {
   const { user_id: auth0Id } = req.body;
   if (auth0Id === null || auth0Id === undefined) {
     throw new httpErrors.BadRequest();
