@@ -1,17 +1,28 @@
+import { GoSignIn, GoSignOut } from 'react-icons/go';
+import { MdSubscriptions } from 'react-icons/md';
 import { RiMoneyCnyCircleFill } from 'react-icons/ri';
 
-const iconTypes = ['money'] as const;
+const iconTypes = ['money', 'signin', 'signout', 'subscription'] as const;
 type Props = {
   iconType: typeof iconTypes[number];
   color?: string;
   size?: string | number;
 };
+
 const ReactIcon: React.VFC<Props> = ({ iconType, ...rest }) => {
   switch (iconType) {
     case 'money':
       return <RiMoneyCnyCircleFill {...rest} />;
+    case 'signin':
+      return <GoSignIn {...rest} />;
+    case 'signout':
+      return <GoSignOut {...rest} />;
+    case 'subscription':
+      return <MdSubscriptions {...rest} />;
     default:
-      return null;
+      // assign iconType to never type variable to check exhaustive
+      // eslint-disable-next-line no-case-declarations,@typescript-eslint/no-unused-vars
+      const _exhaustiveCheck: never = iconType;
   }
 };
 
