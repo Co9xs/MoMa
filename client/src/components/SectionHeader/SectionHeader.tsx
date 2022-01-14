@@ -12,12 +12,13 @@ const Heading: React.VFC<HeadingProps> = ({ text }) => {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
   text: string;
+  onRequestAddAccount: () => void;
 }
-const SectionHeader: React.VFC<Props> = ({ text }) => {
+const SectionHeader: React.VFC<Props> = ({ text, onRequestAddAccount }) => {
   return (
     <div className='flex justify-between align-center'>
       <Heading text={text} />
-      <Button icon={<ReactIcon iconType='add' />} text='追加' />
+      <Button onClick={onRequestAddAccount} icon={<ReactIcon iconType='add' />} text='追加' />
     </div>
   );
 };

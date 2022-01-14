@@ -23,4 +23,5 @@ Default.args = {
       balance: 21040,
     },
   ],
+  onRequestAddAccount: () => {},
 };
