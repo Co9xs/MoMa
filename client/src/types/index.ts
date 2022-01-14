@@ -1,4 +1,3 @@
-export type User = Readonly<{
-  id: number;
-  auth0Id: string;
-}>;
+export type { User } from './User';
+export type { Account } from './Account';
+export type { CreditCard } from './CreditCard';
