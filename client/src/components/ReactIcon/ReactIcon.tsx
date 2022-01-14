@@ -5,7 +5,7 @@ import { MdSubscriptions } from 'react-icons/md';
 import { RiMoneyCnyCircleFill } from 'react-icons/ri';
 
 const iconTypes = ['add', 'money-circle', 'money-stack', 'signin', 'signout', 'subscription'] as const;
-type Props = {
+interface Props {
   iconType: typeof iconTypes[number];
   color?: string;
   size?: string | number;

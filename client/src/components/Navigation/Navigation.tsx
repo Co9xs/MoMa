@@ -10,7 +10,7 @@ interface Props {
   onRequestLogin: () => void;
 }
 
-export const Navigation: React.VFC<Props> = ({ activeUser, onRequestLogout, onRequestLogin }) => {
+const Navigation: React.VFC<Props> = ({ activeUser, onRequestLogout, onRequestLogin }) => {
   return (
     <div className='flex flex-col w-64 h-screen'>
       <div className='bg-moma-80 py-5'>
@@ -35,3 +35,5 @@ export const Navigation: React.VFC<Props> = ({ activeUser, onRequestLogout, onRe
     </div>
   );
 };
+
+export { Navigation };

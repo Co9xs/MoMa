@@ -6,7 +6,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   mode?: 'primary' | 'secondary' | 'warn' | 'danger';
 }
 
-export const Button: React.VFC<Props> = ({ icon, text, mode = 'primary', ...rest }) => {
+const Button: React.VFC<Props> = ({ icon, text, mode = 'primary', ...rest }) => {
   return (
     <button {...rest}>
       <div
@@ -27,3 +27,5 @@ export const Button: React.VFC<Props> = ({ icon, text, mode = 'primary', ...rest
     </button>
   );
 };
+
+export { Button };
