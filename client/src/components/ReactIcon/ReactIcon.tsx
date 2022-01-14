@@ -1,8 +1,9 @@
+import { GiMoneyStack } from 'react-icons/gi';
 import { GoSignIn, GoSignOut } from 'react-icons/go';
 import { MdSubscriptions } from 'react-icons/md';
 import { RiMoneyCnyCircleFill } from 'react-icons/ri';
 
-const iconTypes = ['money', 'signin', 'signout', 'subscription'] as const;
+const iconTypes = ['money-circle', 'money-stack', 'signin', 'signout', 'subscription'] as const;
 type Props = {
   iconType: typeof iconTypes[number];
   color?: string;
@@ -11,8 +12,10 @@ type Props = {
 
 const ReactIcon: React.VFC<Props> = ({ iconType, ...rest }) => {
   switch (iconType) {
-    case 'money':
+    case 'money-circle':
       return <RiMoneyCnyCircleFill {...rest} />;
+    case 'money-stack':
+      return <GiMoneyStack {...rest} />;
     case 'signin':
       return <GoSignIn {...rest} />;
     case 'signout':
