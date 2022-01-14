@@ -6,7 +6,7 @@ interface Props {
 
 const AccountItem: React.VFC<Props> = ({ account }) => {
   return (
-    <div className='p-3 shadow'>
+    <div className='p-3 shadow bg-moma-10'>
       <h3 className='text-xl text-moma-80 font-bold'>{account.name}</h3>
       <div className='pt-2 px-2'>
         <p className='text-moma-70'>口座残高</p>
