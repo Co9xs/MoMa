@@ -1,4 +1,1 @@
-export type User = Readonly<{
-  id: number;
-  auth0Id: string;
-}>;
+export type { User } from './User';
