@@ -9,7 +9,6 @@ const Heading: React.VFC<HeadingProps> = ({ text }) => {
   return <h2 className='text-2xl text-moma-80 font-bold '>{text}</h2>;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
   text: string;
   onRequestOpenModal: () => void;
