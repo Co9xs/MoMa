@@ -4,8 +4,8 @@ interface Props {
 const MainLayout: React.VFC<Props> = ({ children: [navigation, ...restChildren] }) => {
   return (
     <div className='relative h-screen'>
-      <div className='absolute left-0 top-0 bottom-0 h-full'>{navigation}</div>
-      <div className='pl-64 h-full'>{restChildren}</div>
+      <aside className='absolute left-0 top-0 bottom-0 h-full'>{navigation}</aside>
+      <main className='pl-64 h-full'>{restChildren}</main>
     </div>
   );
 };
