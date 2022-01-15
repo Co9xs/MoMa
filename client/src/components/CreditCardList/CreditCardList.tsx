@@ -7,14 +7,14 @@ import { CreditCard } from '../../types';
 
 interface Props {
   creditCards: CreditCard[];
-  onRequestAddCreditCard: () => void;
+  onRequestOpenCreditCardModal: () => void;
 }
 
-const CreditCardList: React.VFC<Props> = ({ creditCards, onRequestAddCreditCard }) => {
+const CreditCardList: React.VFC<Props> = ({ creditCards, onRequestOpenCreditCardModal }) => {
   return (
     <div className='bg-moma-20 p-3'>
       <div className='pb-3'>
-        <SectionHeader text='クレジットカード' onRequestAddItem={onRequestAddCreditCard} />
+        <SectionHeader text='クレジットカード' onRequestOpenModal={onRequestOpenCreditCardModal} />
       </div>
       <div className='grid grid-flow-row grid-col-1 gap-6 auto-rows-min'>
         {creditCards.map((creditCard) => (
