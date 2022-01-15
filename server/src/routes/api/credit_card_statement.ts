@@ -29,9 +29,18 @@ router.get('/credit_cards/:credit_card_id/statements', async (req, res) => {
     throw new httpErrors.Forbidden();
   }
 
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const;
+  const month = months[Number(req.query.month) - 1];
+
+  if (month === undefined) {
+    throw new httpErrors.BadRequest();
+  }
+
   const statements = await prisma.creditCardStatement.findMany({
     where: {
       creditCardId: Number(req.params.credit_card_id),
+      year: req.query.year as string,
+      month: month,
     },
   });
 
@@ -62,6 +71,8 @@ router.post('/credit_cards/:credit_card_id/statements', async (req, res) => {
   const newStatement = await prisma.creditCardStatement.create({
     data: {
       date: req.body.date,
+      year: req.body.year,
+      month: req.body.month,
       name: req.body.name,
       price: req.body.price,
       creditCardId: creditCard.id,

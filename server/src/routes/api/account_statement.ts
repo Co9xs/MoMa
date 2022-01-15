@@ -29,9 +29,18 @@ router.get('/accounts/:account_id/statements', async (req, res) => {
     throw new httpErrors.Forbidden();
   }
 
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const;
+  const month = months[Number(req.query.month) - 1];
+
+  if (month === undefined) {
+    throw new httpErrors.BadRequest();
+  }
+
   const statements = await prisma.accountStatement.findMany({
     where: {
       accountId: Number(req.params.account_id),
+      year: req.query.year as string,
+      month: month,
     },
   });
 
@@ -64,6 +73,8 @@ router.post('/accounts/:account_id/statements', async (req, res) => {
       date: req.body.date,
       name: req.body.name,
       price: req.body.price,
+      year: req.body.year,
+      month: req.body.month,
       accountId: account.id,
     },
   });
