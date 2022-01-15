@@ -23,6 +23,7 @@ module.exports = {
       ...config.resolve.alias,
       '@components': path.resolve(SRC_PATH, './components'),
       '@containers': path.resolve(SRC_PATH, './containers'),
+      '@pages': path.resolve(SRC_PATH, './pages'),
       '@hooks': path.resolve(SRC_PATH, './hooks'),
       '@styles': path.resolve(SRC_PATH, './styles'),
       '@utils': path.resolve(SRC_PATH, './utils'),

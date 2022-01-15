@@ -38,6 +38,7 @@
         "alphabetize": { "order": "asc", "caseInsensitive": true },
         "pathGroups": [
           { "pattern": "@containers/**", "group": "internal", "position": "before" },
+          { "pattern": "@pages/**", "group": "internal", "position": "before" },
           { "pattern": "@components/**", "group": "internal", "position": "before" },
           { "pattern": "@styles/*.css", "group": "index", "position": "before" }
         ]
