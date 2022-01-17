@@ -9,8 +9,7 @@ import { checkJwt } from '../../middlewares/checkJwt';
 const router = Router();
 const prisma = new PrismaClient();
 
-router.use(checkJwt);
-router.get('/credit_cards/:credit_card_id/statements', async (req, res) => {
+router.get('/credit_cards/:credit_card_id/statements', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -49,7 +48,7 @@ router.get('/credit_cards/:credit_card_id/statements', async (req, res) => {
   return res.status(200).type('applicatioin/json').send(statements);
 });
 
-router.post('/credit_cards/:credit_card_id/statements', async (req, res) => {
+router.post('/credit_cards/:credit_card_id/statements', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -84,7 +83,7 @@ router.post('/credit_cards/:credit_card_id/statements', async (req, res) => {
   return res.status(200).type('application/json').send(newStatement);
 });
 
-router.patch('/credit_cards/:credit_card_id/statements/:statement_id', async (req, res) => {
+router.patch('/credit_cards/:credit_card_id/statements/:statement_id', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -134,7 +133,7 @@ router.patch('/credit_cards/:credit_card_id/statements/:statement_id', async (re
   return res.status(200).type('application/json').send(updatedStatement);
 });
 
-router.delete('/credit_cards/:credit_card_id/statements/:statement_id', async (req, res) => {
+router.delete('/credit_cards/:credit_card_id/statements/:statement_id', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {

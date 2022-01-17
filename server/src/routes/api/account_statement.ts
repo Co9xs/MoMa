@@ -9,8 +9,8 @@ import { checkJwt } from '../../middlewares/checkJwt';
 const router = Router();
 const prisma = new PrismaClient();
 
-router.use(checkJwt);
-router.get('/accounts/:account_id/statements', async (req, res) => {
+// router.use(checkJwt);
+router.get('/accounts/:account_id/statements', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -49,7 +49,7 @@ router.get('/accounts/:account_id/statements', async (req, res) => {
   return res.status(200).type('applicatioin/json').send(statements);
 });
 
-router.post('/accounts/:account_id/statements', async (req, res) => {
+router.post('/accounts/:account_id/statements', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -84,7 +84,7 @@ router.post('/accounts/:account_id/statements', async (req, res) => {
   return res.status(200).type('application/json').send(newStatement);
 });
 
-router.patch('/accounts/:account_id/statements/:statement_id', async (req, res) => {
+router.patch('/accounts/:account_id/statements/:statement_id', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -134,7 +134,7 @@ router.patch('/accounts/:account_id/statements/:statement_id', async (req, res) 
   return res.status(200).type('application/json').send(updatedStatement);
 });
 
-router.delete('/accounts/:account_id/statements/:statement_id', async (req, res) => {
+router.delete('/accounts/:account_id/statements/:statement_id', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {

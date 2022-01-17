@@ -9,8 +9,7 @@ import { checkJwt } from '../../middlewares/checkJwt';
 const router = Router();
 const prisma = new PrismaClient();
 
-router.use(checkJwt);
-router.get('/subscriptions', async (req, res) => {
+router.get('/subscriptions', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -26,7 +25,7 @@ router.get('/subscriptions', async (req, res) => {
   return res.status(200).type('applicatioin/json').send(subscriptions);
 });
 
-router.post('/subscriptions', async (req, res) => {
+router.post('/subscriptions', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -44,7 +43,7 @@ router.post('/subscriptions', async (req, res) => {
   return res.status(200).type('application/json').send(newSubscription);
 });
 
-router.patch('/subscriptions/:subscription_id', async (req, res) => {
+router.patch('/subscriptions/:subscription_id', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
@@ -78,7 +77,7 @@ router.patch('/subscriptions/:subscription_id', async (req, res) => {
   return res.status(200).type('application/json').send(updatedSubscription);
 });
 
-router.delete('/subscriptions/:subscription_id', async (req, res) => {
+router.delete('/subscriptions/:subscription_id', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
   if (currentUserId === undefined) {
