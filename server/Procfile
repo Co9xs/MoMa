@@ -1,2 +1,2 @@
-release: yarn prisma:migrate:prod
+release: npx prisma migrate deploy
 web: yarn start
