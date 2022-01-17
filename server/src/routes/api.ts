@@ -6,7 +6,6 @@ import { subscriptionRouter } from './api/subscription';
 import { creditCardStatementRouter } from './api/credit_card_statement';
 import { accountRouter } from './api/account';
 import { accountStatementRouter } from './api/account_statement';
-import { checkJwt } from '../middlewares/checkJwt';
 
 const router = Router();
 
@@ -16,6 +15,5 @@ router.use(creditCardStatementRouter);
 router.use(accountRouter);
 router.use(accountStatementRouter);
 router.use(subscriptionRouter);
-router.use(checkJwt);
 
 export { router as apiRouter };
