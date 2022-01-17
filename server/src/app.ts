@@ -18,10 +18,6 @@ app.use(
 );
 app.use(allowCrossDomain);
 
-app.get('/', (req, res) => {
-  return res.end('Hello Express');
-});
-
 app.use('/api/v1', apiRouter);
 app.use(staticRouter);
 
