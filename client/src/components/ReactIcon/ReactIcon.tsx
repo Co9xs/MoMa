@@ -9,7 +9,7 @@ interface Props {
   iconType: typeof iconTypes[number];
   color?: string;
   size?: string | number;
-};
+}
 
 const ReactIcon: React.VFC<Props> = ({ iconType, ...rest }) => {
   switch (iconType) {
@@ -29,6 +29,7 @@ const ReactIcon: React.VFC<Props> = ({ iconType, ...rest }) => {
       // assign iconType to never type variable to check exhaustive
       // eslint-disable-next-line no-case-declarations,@typescript-eslint/no-unused-vars
       const _exhaustiveCheck: never = iconType;
+      return null;
   }
 };
 
