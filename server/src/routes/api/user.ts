@@ -5,11 +5,12 @@ import Router from 'express-promise-router';
 import httpErrors from 'http-errors';
 
 import { PrismaClient } from '@prisma/client';
+import { checkJwt } from '../../middlewares/checkJwt';
 
 const router = Router();
 const prisma = new PrismaClient();
 
-router.post('/signin', (req, res) => {
+router.post('/signin', checkJwt, (req, res) => {
   const { user_id: auth0Id } = req.body;
   if (auth0Id === null || auth0Id === undefined) {
     throw new httpErrors.BadRequest();

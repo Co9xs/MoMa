@@ -4,10 +4,12 @@
 import Router from 'express-promise-router';
 import httpErrors from 'http-errors';
 import { PrismaClient } from '@prisma/client';
+import { checkJwt } from '../../middlewares/checkJwt';
 
 const router = Router();
 const prisma = new PrismaClient();
 
+router.use(checkJwt);
 router.get('/credit_cards/:credit_card_id/statements', async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
