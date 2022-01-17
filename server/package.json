@@ -12,6 +12,7 @@
     "prisma:generate": "prisma generate",
     "prisma:reset": "prisma migrate reset --force",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:prod": "prisma migrate deploy",
     "prisma:seed": "prisma db seed --preview-feature",
     "prisma:dev": "run-s -l prisma:reset prisma:generate prisma:migrate",
     "lint": "eslint -c .eslintrc.json './src/**/*.ts'",
