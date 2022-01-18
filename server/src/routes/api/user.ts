@@ -21,8 +21,6 @@ router.post('/signin', (req, res) => {
 router.post('/users', async (req, res) => {
   const { user_id: auth0Id }: { user_id: string } = req.body;
 
-  console.log(auth0Id);
-
   if (auth0Id === null || auth0Id === undefined) {
     throw new httpErrors.BadRequest();
   }
