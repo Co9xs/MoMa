@@ -1,4 +1,8 @@
+import { useQuery } from 'react-query';
+
 import { DashboardPage } from '@pages/DashboardPage';
+
+import { getAccountList } from '@utils/fetchers';
 
 const _accounts = [
   {
@@ -27,9 +31,15 @@ const _creditCards = [
 ];
 
 const DashboardPageContainer: React.VFC = () => {
+  const { data: accounts, isLoading } = useQuery(['accounts'], getAccountList, { useErrorBoundary: true });
+
+  if (isLoading) {
+    return <div>isLoading</div>;
+  }
+
   return (
     <DashboardPage
-      accounts={_accounts}
+      accounts={accounts}
       creditCards={_creditCards}
       onRequestOpenAccountModal={() => {}}
       onRequestOpenCreditCardModal={() => {}}
