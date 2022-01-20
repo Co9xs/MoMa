@@ -7,20 +7,17 @@ import { DashboardPageContainer } from '@containers/DashboardPageContainer';
 import { AppPage } from '@pages/AppPage';
 
 import { useActiveUserId } from '@hooks/useActiveUserId';
-import { signin } from '@utils/fetchers';
+import { setSession } from '@utils/fetchers';
 
 const AppPageContainer: React.VFC = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const { isLoading: isInitializing, error } = useQuery(['setSession', user], () => setSession(user), {
+    enabled: isAuthenticated,
+  });
   const activeUserId = useActiveUserId(user);
 
-  const { isLoading: isSignining, error, isError } = useQuery(['signin', user], () => signin(user));
-
-  if (isLoading || isSignining) {
+  if (isLoading || isInitializing) {
     return <div>is Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>{JSON.stringify(error)}</div>;
   }
 
   return (

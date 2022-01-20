@@ -1,7 +1,9 @@
 import { User } from '@auth0/auth0-react';
 
-const signin: (user: User) => Promise<string> = async (user) => {
-  const res = await fetch('https://moma-v1.herokuapp.com/api/v1/signin', {
+import { API_ENDPOINT } from '@utils/constants';
+
+const setSession: (user: User) => Promise<string> = async (user) => {
+  const res = await fetch(`${API_ENDPOINT}/api/v1/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,4 +19,4 @@ const signin: (user: User) => Promise<string> = async (user) => {
   return res.json() as Promise<string>;
 };
 
-export { signin };
+export { setSession };
