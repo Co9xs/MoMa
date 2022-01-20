@@ -5,8 +5,10 @@ const useActiveUserId = (user: User) => {
   const [activeUserId, setActiveUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (user) {
+    if (user !== null && user !== undefined) {
       setActiveUserId(user.sub);
+    } else {
+      setActiveUserId(null);
     }
   }, [user]);
 

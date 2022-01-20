@@ -3,32 +3,33 @@ import { useQuery } from 'react-query';
 import { Route, Routes } from 'react-router-dom';
 
 import { DashboardPageContainer } from '@containers/DashboardPageContainer';
+import { NotFoundPageContainer } from '@containers/NotFoundPageContainer';
 
 import { AppPage } from '@pages/AppPage';
 
-import { useActiveUserId } from '@hooks/useActiveUserId';
-import { signin } from '@utils/fetchers';
+import { setSession } from '@utils/fetchers';
 
 const AppPageContainer: React.VFC = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
-  const activeUserId = useActiveUserId(user);
+  const {
+    data,
+    isLoading: isInitializingSession,
+  } = useQuery(['setSession', user], () => setSession(user), {
+    enabled: isAuthenticated,
+    useErrorBoundary: true,
+  });
 
-  const { isLoading: isSignining, error, isError } = useQuery(['signin', user], () => signin(user));
-
-  if (isLoading || isSignining) {
+  if (isLoading || isInitializingSession) {
     return <div>is Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>{JSON.stringify(error)}</div>;
   }
 
   return (
     <>
-      {<div>{activeUserId}</div>}
-      <AppPage activeUserId={activeUserId} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
+      {<div>{JSON.stringify(data.auth0Id)}</div>}
+      <AppPage activeUserId={data.auth0Id} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
         <Routes>
           <Route element={<DashboardPageContainer />} path='/' />
+          <Route element={<NotFoundPageContainer />} path='*' />
         </Routes>
       </AppPage>
     </>
