@@ -2,7 +2,7 @@ import { User } from '@auth0/auth0-react';
 
 import { API_ENDPOINT } from '@utils/constants';
 
-const setSession: (user: User) => Promise<string> = async (user) => {
+const setSession: (user: User) => Promise<{ auth0Id: string }> = async (user) => {
   const res = await fetch(`${API_ENDPOINT}/api/v1/signin`, {
     method: 'POST',
     headers: {
@@ -16,7 +16,7 @@ const setSession: (user: User) => Promise<string> = async (user) => {
     throw new Error('Network response was not ok');
   }
 
-  return res.json() as Promise<string>;
+  return res.json() as Promise<{ auth0Id: string }>;
 };
 
 export { setSession };
