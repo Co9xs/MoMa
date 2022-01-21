@@ -17,7 +17,8 @@ app.use(
     secret: 'secret',
     cookie: {
       sameSite: 'none',
-      maxAge: 3600 * 1000 // 1 hour
+      secure: true,
+      maxAge: 3600 * 1000, // 1 hour
     },
   })
 );
