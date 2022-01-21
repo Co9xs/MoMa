@@ -12,7 +12,7 @@ const prisma = new PrismaClient();
 router.get('/accounts', checkJwt, async (req, res) => {
   const currentUserId = req.session.auth0Id;
 
-  console.log(req.session);
+  console.log(req.session.auth0Id);
 
   if (currentUserId === undefined) {
     throw new httpErrors.Unauthorized();
