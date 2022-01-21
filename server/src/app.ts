@@ -15,6 +15,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: 'secret',
+    cookie: {
+      sameSite: 'none',
+    },
   })
 );
 app.use(
