@@ -20,13 +20,15 @@ const setSession: (user: User) => Promise<{ auth0Id: string }> = async (user) =>
   return res.json() as Promise<{ auth0Id: string }>;
 };
 
-const getAccountList: () => Promise<Account[]> = async () => {
+const getAccountList: (accessToken: string) => Promise<Account[]> = async (accessToken) => {
   const res = await fetch(`${API_ENDPOINT}/api/v1/accounts`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
     mode: 'cors',
+    credentials: 'include',
   });
 
   if (!res.ok) {

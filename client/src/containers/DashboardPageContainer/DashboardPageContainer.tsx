@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 
 import { DashboardPage } from '@pages/DashboardPage';
 
+import { useAccessToken } from '@hooks/useAccessToken';
 import { getAccountList } from '@utils/fetchers';
 
 const _accounts = [
@@ -31,19 +32,26 @@ const _creditCards = [
 ];
 
 const DashboardPageContainer: React.VFC = () => {
-  const { data: accounts, isLoading } = useQuery(['accounts'], getAccountList, { useErrorBoundary: true });
+  const accessToken = useAccessToken();
+  const { data: accounts, isLoading } = useQuery(['accounts', accessToken], () => getAccountList(accessToken), {
+    enabled: accessToken !== null,
+    useErrorBoundary: true,
+  });
 
   if (isLoading) {
     return <div>isLoading</div>;
   }
 
   return (
-    <DashboardPage
-      accounts={accounts}
-      creditCards={_creditCards}
-      onRequestOpenAccountModal={() => {}}
-      onRequestOpenCreditCardModal={() => {}}
-    />
+    <>
+      <div>{JSON.stringify(accounts)}</div>
+      <DashboardPage
+        accounts={[]}
+        creditCards={_creditCards}
+        onRequestOpenAccountModal={() => {}}
+        onRequestOpenCreditCardModal={() => {}}
+      />
+    </>
   );
 };
 
