@@ -25,8 +25,8 @@ const AppPageContainer: React.VFC = () => {
 
   return (
     <>
-      {<div>{JSON.stringify(data.auth0Id)}</div>}
-      <AppPage activeUserId={data.auth0Id} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
+      {<div>{JSON.stringify(data)}</div>}
+      <AppPage activeUserId={null} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
         <Routes>
           <Route element={<DashboardPageContainer />} path='/' />
           <Route element={<NotFoundPageContainer />} path='*' />
