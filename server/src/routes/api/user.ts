@@ -16,7 +16,7 @@ router.post('/signin', (req, res) => {
     throw new httpErrors.BadRequest();
   }
 
-  req.session.auth0Id = auth0Id;
+  // req.session.auth0Id = auth0Id;
   
   return res.status(200).send({ auth0Id });
 });
