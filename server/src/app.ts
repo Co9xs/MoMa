@@ -18,8 +18,6 @@ app.use(
     saveUninitialized: false,
     secret: 'secret',
     cookie: {
-      sameSite: 'none',
-      secure: false,
       maxAge: 3600 * 1000, // 1 hour
     },
   })
