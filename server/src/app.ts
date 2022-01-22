@@ -8,6 +8,8 @@ import { ALLOWED_ORIGINS } from './constants';
 
 const app = express();
 
+app.set('trust proxy', true);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -18,6 +20,8 @@ app.use(
     saveUninitialized: false,
     secret: 'secret',
     cookie: {
+      sameSite: 'none',
+      secure: true,
       maxAge: 3600 * 1000, // 1 hour
     },
   })
