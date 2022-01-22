@@ -15,9 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
+    name: 'connect.moma.sid',
     proxy: true,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     secret: 'secret',
   })
 );
