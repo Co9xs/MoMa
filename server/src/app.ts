@@ -7,8 +7,11 @@ import { staticRouter } from './routes/static';
 import { ALLOWED_ORIGINS } from './constants';
 
 const app = express();
+
+app.set('trust proxy', true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(
   session({
     proxy: true,
@@ -22,6 +25,7 @@ app.use(
     },
   })
 );
+
 app.use(
   cors({
     origin: ALLOWED_ORIGINS,
