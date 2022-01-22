@@ -26,7 +26,6 @@ const getAccountList: (accessToken: string) => Promise<Account[]> = async (acces
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
-      Cookie: 'connect.sid=s%3AJGGkty7nUtOP_4uCcO9PtK3bjLyrIQZx.affeste7bzuzaHaSigyl56YDkK93QCtD02ehmrFPDKE',
     },
     mode: 'cors',
     credentials: 'include',

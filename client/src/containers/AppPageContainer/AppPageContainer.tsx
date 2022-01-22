@@ -11,10 +11,7 @@ import { setSession } from '@utils/fetchers';
 
 const AppPageContainer: React.VFC = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
-  const {
-    data,
-    isLoading: isInitializingSession,
-  } = useQuery(['setSession', user], () => setSession(user), {
+  const { data, isLoading: isInitializingSession } = useQuery(['setSession', user], () => setSession(user), {
     enabled: isAuthenticated,
     useErrorBoundary: true,
   });
@@ -25,8 +22,8 @@ const AppPageContainer: React.VFC = () => {
 
   return (
     <>
-      {<div>{JSON.stringify(data)}</div>}
-      <AppPage activeUserId={null} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
+      {<div>{JSON.stringify(data.auth0Id)}</div>}
+      <AppPage activeUserId={data.auth0Id} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
         <Routes>
           <Route element={<DashboardPageContainer />} path='/' />
           <Route element={<NotFoundPageContainer />} path='*' />
