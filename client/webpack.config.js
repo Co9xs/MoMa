@@ -18,10 +18,13 @@ module.exports = {
     host: '0.0.0.0',
     port: 3000,
     static: [PUBLIC_PATH],
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.crt')),
-    },
+    https:
+      process.env.NODE_ENV === 'development'
+        ? {
+            key: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.key')),
+            cert: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.crt')),
+          }
+        : {},
   },
   entry: {
     style: path.resolve(SRC_PATH, './index.css'),
