@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
@@ -17,11 +18,9 @@ module.exports = {
     host: '0.0.0.0',
     port: 3000,
     static: [PUBLIC_PATH],
-    proxy: {
-      '/api': {
-        changeOrigin: true,
-        target: 'https://moma-v1.herokuapp.com',
-      },
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.crt')),
     },
   },
   entry: {
