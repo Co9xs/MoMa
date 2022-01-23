@@ -44,9 +44,8 @@ const DashboardPageContainer: React.VFC = () => {
 
   return (
     <>
-      <div>{JSON.stringify(accounts)}</div>
       <DashboardPage
-        accounts={[]}
+        accounts={accounts}
         creditCards={_creditCards}
         onRequestOpenAccountModal={() => {}}
         onRequestOpenCreditCardModal={() => {}}
