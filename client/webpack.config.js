@@ -17,6 +17,12 @@ module.exports = {
     host: '0.0.0.0',
     port: 3000,
     static: [PUBLIC_PATH],
+    proxy: {
+      '/api': {
+        changeOrigin: true,
+        target: 'https://moma-v1.herokuapp.com',
+      },
+    },
   },
   entry: {
     style: path.resolve(SRC_PATH, './index.css'),
