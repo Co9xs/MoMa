@@ -12,17 +12,6 @@ const prisma = new PrismaClient();
 router.post('/signin', (req, res) => {
   const { user_id: auth0Id } = req.body;
 
-  console.log('req.headers:', req.headers);
-  console.log('protocol:', req.protocol);
-  console.log('ip:', req.ip);
-  console.log('res.headers:', res.getHeaders());
-
-  res.setHeader('Set-Cookie', [
-    'strict=value; SameSite=Strict',
-    'lax=value; SameSite=Lax',
-    'none=value; SameSite=None',
-  ]);
-
   if (auth0Id === null || auth0Id === undefined) {
     throw new httpErrors.BadRequest();
   }
