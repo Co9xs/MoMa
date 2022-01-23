@@ -8,7 +8,7 @@ import { ALLOWED_ORIGINS } from './constants';
 
 const app = express();
 
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,9 +17,13 @@ app.use(
   session({
     name: 'connect.moma.sid',
     proxy: true,
-    resave: true,
-    saveUninitialized: true,
-    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    secret: 'secret key',
+    cookie: {
+      sameSite: 'none',
+      secure: true,
+    },
   })
 );
 

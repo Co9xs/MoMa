@@ -12,12 +12,16 @@ const prisma = new PrismaClient();
 router.post('/signin', (req, res) => {
   const { user_id: auth0Id } = req.body;
 
+  console.log('headers:', req.headers);
+  console.log('protocol:', req.protocol);
+  console.log('ip:', req.ip);
+
   if (auth0Id === null || auth0Id === undefined) {
     throw new httpErrors.BadRequest();
   }
 
   req.session.auth0Id = auth0Id;
-  
+
   return res.status(200).send({ auth0Id });
 });
 
