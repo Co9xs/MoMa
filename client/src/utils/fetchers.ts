@@ -1,10 +1,8 @@
 import { User } from '@auth0/auth0-react';
 import { Account } from 'src/types';
 
-import { API_ENDPOINT } from './constants';
-
 const setSession: (user: User) => Promise<{ auth0Id: string }> = async (user) => {
-  const res = await fetch(`${API_ENDPOINT}/api/v1/signin`, {
+  const res = await fetch(`/api/v1/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +19,7 @@ const setSession: (user: User) => Promise<{ auth0Id: string }> = async (user) =>
 };
 
 const getAccountList: (accessToken: string) => Promise<Account[]> = async (accessToken) => {
-  const res = await fetch(`${API_ENDPOINT}/api/v1/accounts`, {
+  const res = await fetch(`/api/v1/accounts`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

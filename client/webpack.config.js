@@ -18,13 +18,12 @@ module.exports = {
     host: '0.0.0.0',
     port: 3000,
     static: [PUBLIC_PATH],
-    https:
-      process.env.NODE_ENV === 'development'
-        ? {
-            key: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.key')),
-            cert: fs.readFileSync(path.resolve(__dirname, '../public/ca/localhost.crt')),
-          }
-        : {},
+    proxy: {
+      '/api': {
+        changeOrigin: true,
+        target: 'https://moma-v1.herokuapp.com',
+      },
+    },
   },
   entry: {
     style: path.resolve(SRC_PATH, './index.css'),
