@@ -1,3 +1,4 @@
+import { GlobalHeader } from '@components/GlobalHeader';
 import { LayoutWithNavigation } from '@components/LayoutWithNavigation';
 import { Navigation } from '@components/Navigation';
 
@@ -12,6 +13,7 @@ const AppPage: React.VFC<Props> = ({ activeUserId, onRequestLogin, onRequestLogo
   return (
     <LayoutWithNavigation>
       <Navigation activeUserId={activeUserId} onRequestLogin={onRequestLogin} onRequestLogout={onRequestLogout} />
+      <GlobalHeader activeUserId={activeUserId} />
       {children}
     </LayoutWithNavigation>
   );
