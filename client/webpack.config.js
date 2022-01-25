@@ -54,6 +54,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
+      '@apis': path.resolve(SRC_PATH, './apis'),
       '@components': path.resolve(SRC_PATH, './components'),
       '@containers': path.resolve(SRC_PATH, './containers'),
       '@pages': path.resolve(SRC_PATH, './pages'),

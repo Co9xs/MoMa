@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2020", "DOM"],
     "paths": {
+      "@apis/*": ["src/apis/*"],
       "@components/*": ["src/components/*"],
       "@containers/*": ["src/containers/*"],
       "@pages/*": ["src/pages/*"],
