@@ -3,50 +3,44 @@ import { useQuery } from 'react-query';
 import { DashboardPage } from '@pages/DashboardPage';
 
 import { useAccessToken } from '@hooks/useAccessToken';
-import { getAccountList } from '@utils/fetchers';
 
-const _accounts = [
-  {
-    id: 1,
-    name: '楽天銀行',
-    balance: 165040,
-  },
-  {
-    id: 2,
-    name: 'ゆうちょ銀行',
-    balance: 21040,
-  },
-];
-
-const _creditCards = [
-  {
-    id: 1,
-    name: '楽天カード',
-    budget: 50000,
-  },
-  {
-    id: 2,
-    name: '三井住友カード',
-    budget: 20000,
-  },
-];
+import { getAccountList } from '../../apis/account';
+import { getCreditCardList } from '../../apis/creditCard';
 
 const DashboardPageContainer: React.VFC = () => {
-  const accessToken = useAccessToken();
-  const { data: accounts, isLoading } = useQuery(['accounts', accessToken], () => getAccountList(accessToken), {
-    enabled: accessToken !== null,
-    useErrorBoundary: true,
-  });
+  const { data: accessToken, isLoading: isLoadingAccessToken } = useAccessToken();
 
-  if (isLoading) {
-    return <div>isLoading</div>;
+  const { data: accounts, isLoading: isLoadingAccountList } = useQuery(
+    ['accounts', accessToken],
+    () => getAccountList(accessToken),
+    {
+      enabled: accessToken !== null,
+      useErrorBoundary: true,
+    }
+  );
+
+  const { data: creditCards, isLoading: isLoadingCreditCardList } = useQuery(
+    ['creditCards', accessToken],
+    () => getCreditCardList(accessToken),
+    {
+      enabled: accessToken !== null,
+      useErrorBoundary: true,
+    }
+  );
+
+  if (isLoadingAccessToken) {
+    return <div>isLoaing AccessToken...</div>;
+  }
+
+  if (isLoadingAccountList || isLoadingCreditCardList) {
+    return <div>isLoading Content...</div>;
   }
 
   return (
     <>
       <DashboardPage
         accounts={accounts}
-        creditCards={_creditCards}
+        creditCards={creditCards}
         onRequestOpenAccountModal={() => {}}
         onRequestOpenCreditCardModal={() => {}}
       />

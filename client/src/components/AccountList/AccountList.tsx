@@ -17,13 +17,11 @@ const AccountList: React.VFC<Props> = ({ accounts, onRequestOpenAccountModal }) 
         <SectionHeader text='銀行口座' onRequestOpenModal={onRequestOpenAccountModal} />
       </div>
       <div className='grid grid-flow-row grid-col-1 gap-6 auto-rows-min'>
-        {accounts
-          ? accounts.map((account) => (
-              <NavLink key={account.id} to={`/accounts/${account.id}/statements`}>
-                <AccountItem account={account} />
-              </NavLink>
-            ))
-          : null}
+        {accounts.map((account) => (
+          <NavLink key={account.id} to={`/accounts/${account.id}/statements`}>
+            <AccountItem account={account} />
+          </NavLink>
+        ))}
       </div>
     </div>
   );

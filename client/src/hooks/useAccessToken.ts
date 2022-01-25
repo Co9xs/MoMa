@@ -3,18 +3,44 @@ import { useState, useEffect } from 'react';
 
 import { API_IDENTIFIER } from '@utils/constants';
 
+interface AccessTokenState {
+  data: string | null;
+  isLoading: boolean;
+  error: unknown | null;
+}
+
 const useAccessToken = () => {
   const { getAccessTokenWithPopup } = useAuth0();
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [accessTokenState, setAccessTokenState] = useState<AccessTokenState>({
+    data: null,
+    isLoading: true,
+    error: null,
+  });
 
   useEffect(() => {
     void (async () => {
-      const accessToken = await getAccessTokenWithPopup({ audience: API_IDENTIFIER });
-      setAccessToken(accessToken);
+      try {
+        const accessToken = await getAccessTokenWithPopup({ audience: API_IDENTIFIER });
+        setAccessTokenState((prev) => {
+          return {
+            ...prev,
+            data: accessToken,
+            isLoading: false,
+          };
+        });
+      } catch (e: unknown) {
+        setAccessTokenState((prev) => {
+          return {
+            ...prev,
+            error: e,
+            isLoading: false,
+          };
+        });
+      }
     })();
   }, [getAccessTokenWithPopup]);
 
-  return accessToken;
+  return accessTokenState;
 };
 
 export { useAccessToken };

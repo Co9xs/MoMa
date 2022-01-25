@@ -17,7 +17,7 @@ const DashboardPage: React.VFC<Props> = ({
   onRequestOpenCreditCardModal,
 }) => {
   return (
-    <div className='h-full bg-moma-20 grid grid-flow-col grid-col-2 gap-4 p-4'>
+    <div className='h-full bg-moma-20 grid grid-flow-col grid-col-2 gap-4 p-3'>
       <AccountList accounts={accounts} onRequestOpenAccountModal={onRequestOpenAccountModal} />
       <CreditCardList creditCards={creditCards} onRequestOpenCreditCardModal={onRequestOpenCreditCardModal} />
     </div>

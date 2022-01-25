@@ -7,7 +7,7 @@ import { NotFoundPageContainer } from '@containers/NotFoundPageContainer';
 
 import { AppPage } from '@pages/AppPage';
 
-import { setSession } from '@utils/fetchers';
+import { setSession } from '../../apis/user';
 
 const AppPageContainer: React.VFC = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -17,13 +17,12 @@ const AppPageContainer: React.VFC = () => {
   });
 
   if (isLoading || isInitializingSession) {
-    return <div>is Loading...</div>;
+    return <div>is Initializing Application...</div>;
   }
 
   return (
     <>
-      {<div>{JSON.stringify(data)}</div>}
-      <AppPage activeUserId={null} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
+      <AppPage activeUserId={data.auth0Id} onRequestLogin={loginWithRedirect} onRequestLogout={logout}>
         <Routes>
           <Route element={<DashboardPageContainer />} path='/' />
           <Route element={<NotFoundPageContainer />} path='*' />
