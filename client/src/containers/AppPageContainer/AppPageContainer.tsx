@@ -7,7 +7,7 @@ import { NotFoundPageContainer } from '@containers/NotFoundPageContainer';
 
 import { AppPage } from '@pages/AppPage';
 
-import { setSession } from '@utils/fetchers';
+import { setSession } from '../../apis/user';
 
 const AppPageContainer: React.VFC = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -17,7 +17,7 @@ const AppPageContainer: React.VFC = () => {
   });
 
   if (isLoading || isInitializingSession) {
-    return <div>is Loading...</div>;
+    return <div>is Initializing Application...</div>;
   }
 
   return (

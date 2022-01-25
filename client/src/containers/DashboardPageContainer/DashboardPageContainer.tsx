@@ -3,7 +3,9 @@ import { useQuery } from 'react-query';
 import { DashboardPage } from '@pages/DashboardPage';
 
 import { useAccessToken } from '@hooks/useAccessToken';
-import { getAccountList, getCreditCardList } from '@utils/fetchers';
+
+import { getAccountList } from '../../apis/account';
+import { getCreditCardList } from '../../apis/creditCard';
 
 const DashboardPageContainer: React.VFC = () => {
   const { data: accessToken, isLoading: isLoadingAccessToken } = useAccessToken();
