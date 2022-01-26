@@ -15,7 +15,7 @@ const ModalSubmitButton: React.VFC<Props> = ({ children, disabled, loading, onCl
   return (
     <button
       className={classNames(
-        'block px-8 py-2 text-white bg-green-600 rounded',
+        'block px-8 py-2 text-moma-10 bg-moma-80 rounded',
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       )}
       disabled={disabled}

@@ -40,20 +40,27 @@ const NewAccountModalPage: React.VFC<Props> = ({ hasError, isLoading, onResetErr
   );
 
   return (
-    <section>
+    <section className='px-6'>
       <form className='flex flex-col items-center w-full' onSubmit={handleSubmit}>
-        <input
-          className='placeholder-gray-300 p-4 w-full h-24 border border-gray-300 rounded resize-none'
-          onChange={handleChangeName}
-          placeholder='〇〇銀行'
-        />
-        <input
-          className='placeholder-gray-300 p-4 w-full h-24 border border-gray-300 rounded resize-none'
-          onChange={handleChangeBalance}
-          placeholder='12345'
-        />
-        <p className='mt-4'>
-          <ModalSubmitButton disabled={isLoading || payload.name === ''} loading={isLoading}>
+        <h3 className='font-bold text-moma-80 text-lg'>新しい口座を作成</h3>
+        <p className='mt-4 w-full'>
+          <span className='text-moma-70'>口座名</span>
+          <input
+            className='placeholder-gray-300 p-4 w-full h-12 border border-gray-300 rounded'
+            onChange={handleChangeName}
+            placeholder='〇〇銀行'
+          />
+        </p>
+        <p className='mt-4 w-full'>
+          <span className='text-moma-70'>口座残高</span>
+          <input
+            className='placeholder-gray-300 p-4 w-full h-12 border border-gray-300 rounded'
+            onChange={handleChangeBalance}
+            placeholder='12345'
+          />
+        </p>
+        <p className='mt-6'>
+          <ModalSubmitButton disabled={isLoading || payload.name === '' || payload.balance === 0} loading={isLoading}>
             作成する
           </ModalSubmitButton>
         </p>

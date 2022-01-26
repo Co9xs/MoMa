@@ -1,13 +1,14 @@
 import { useCallback, useState } from 'react';
 import { useMutation } from 'react-query';
-import { postNewAccount } from 'src/apis/account';
-import { AccountPayload } from 'src/apis/type';
 
 import { NewAccountModalPage } from '@pages/NewAccountModalPage';
 
 import { Modal } from '@components/Modal';
 
 import { useAccessToken } from '@hooks/useAccessToken';
+
+import { postNewAccount } from '../../apis/account';
+import { AccountPayload } from '../../apis/type';
 
 interface Props {
   onRequestCloseModal: () => void;
