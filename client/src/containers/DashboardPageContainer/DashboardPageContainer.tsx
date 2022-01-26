@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { NewAccountModalPageContainer } from '@containers/NewAccountModalPageContainer';
+import { NewCreditCardModalPageContainer } from '@containers/NewCreditCardModalPageContainer';
 
 import { DashboardPage } from '@pages/DashboardPage';
 
@@ -57,9 +58,7 @@ const DashboardPageContainer: React.VFC = () => {
 
       {modalType === 'account' ? <NewAccountModalPageContainer onRequestCloseModal={handleRequestCloseModal} /> : null}
       {modalType === 'creditCard' ? (
-        <div>
-          credit Modal<button onClick={handleRequestCloseModal}>close</button>
-        </div>
+        <NewCreditCardModalPageContainer onRequestCloseModal={handleRequestCloseModal} />
       ) : null}
     </>
   );

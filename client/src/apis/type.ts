@@ -17,4 +17,6 @@ type CreditCard = Readonly<{
   budget: number;
 }>;
 
-export type { User, Account, AccountPayload, CreditCard };
+type CreditCardPayload = Omit<CreditCard, 'id'>;
+
+export type { User, Account, AccountPayload, CreditCard, CreditCardPayload };

@@ -1,0 +1,1 @@
+export { NewCreditCardModalPage } from './NewCreditCardModalPage';
