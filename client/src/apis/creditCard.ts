@@ -3,7 +3,7 @@ import { fetcher } from '@utils/fetchers';
 import { CreditCard } from './type';
 
 const getCreditCardList = async (accessToken: string): Promise<CreditCard[]> => {
-  return fetcher<CreditCard[]>('/api/v1/accounts', {
+  return fetcher<CreditCard[]>('/api/v1//credit_cards', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
