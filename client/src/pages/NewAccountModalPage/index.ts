@@ -1,0 +1,1 @@
+export { NewAccountModalPage } from './NewAccountModalPage';
