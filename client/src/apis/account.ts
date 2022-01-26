@@ -1,6 +1,6 @@
 import { fetcher } from '@utils/fetchers';
 
-import { Account } from './type';
+import { Account, AccountPayload } from './type';
 
 const getAccountList = async (accessToken: string): Promise<Account[]> => {
   return fetcher<Account[]>('/api/v1/accounts', {
@@ -14,4 +14,17 @@ const getAccountList = async (accessToken: string): Promise<Account[]> => {
   });
 };
 
-export { getAccountList };
+const postNewAccount = async (accessToken: string, payload: AccountPayload): Promise<Account> => {
+  return fetcher<Account>('/api/v1/accounts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(payload),
+    mode: 'cors',
+    credentials: 'include',
+  });
+};
+
+export { getAccountList, postNewAccount };
