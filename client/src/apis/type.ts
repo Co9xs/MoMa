@@ -9,10 +9,12 @@ type Account = Readonly<{
   balance: number;
 }>;
 
+type AccountPayload = Omit<Account, 'id'>;
+
 type CreditCard = Readonly<{
   id: number;
   name: string;
   budget: number;
 }>;
 
-export type { User, Account, CreditCard };
+export type { User, Account, AccountPayload, CreditCard };
